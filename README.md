@@ -2,6 +2,8 @@
 
 LLM-powered travel assistant built during Udacity’s Agentic AI Nanodegree and adapted into a polished portfolio project showcasing agentic AI workflows.
 
+![Agentic Travel Assistant workflow diagram](assets/agentic_travel_assistant_workflow_diagram.png)
+
 ## What it does
 
 This project generates and revises a personalized itinerary for a fictional trip to **AgentsVille**. The assistant uses traveler preferences, budget, mock weather data, and mock activity availability to create a day-by-day travel plan, then revises the plan based on feedback.
