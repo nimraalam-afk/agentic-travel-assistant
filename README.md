@@ -16,30 +16,17 @@ This project follows a simple agentic workflow: collect structured trip details,
 
 ```mermaid
 flowchart TD
-    A[VacationInfo Input<br/>Travelers, dates, destination,<br/>interests, and budget] --> B[Pydantic Validation<br/>Confirm structured trip details]
-
-    B --> C[Mock Weather API<br/>Forecast by destination and date]
-    B --> D[Mock Activities API<br/>Available activities, times,<br/>prices, and interests]
-    B --> E[Budget Calculator<br/>Estimate total itinerary cost]
-
-    C --> F[Planning Agent<br/>Generate initial itinerary]
-    D --> F
-    E --> F
-
-    F --> G[Initial Itinerary<br/>Day-by-day activity plan]
-
-    G --> H[Evaluation Layer<br/>Check dates, budget, activity validity,<br/>interest match, and weather suitability]
-
-    H --> I{Passes checks?}
-
-    I -->|Yes| J[Final Itinerary<br/>Validated travel plan ready for output]
-
-    I -->|Needs revision| K[Revision Loop<br/>Use tool feedback and traveler feedback<br/>to improve the plan]
-
-    K --> C
-    K --> D
-    K --> E
-    K --> F
+    A[VacationInfo input] --> B[Pydantic validation]
+    B --> C[Mock weather API]
+    B --> D[Mock activities API]
+    C --> E[Planning agent]
+    D --> E
+    E --> F[Initial itinerary]
+    F --> G[Evaluation checks]
+    G --> H{Passes?}
+    H -->|Yes| I[Final itinerary]
+    H -->|Needs revision| J[Revision loop with tools]
+    J --> G
 ```
 
 The weather and activity data in this project are mocked APIs, which lets the notebook demonstrate tool use, evaluation, and itinerary revision without depending on live third-party services.
