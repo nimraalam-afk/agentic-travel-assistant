@@ -4,9 +4,45 @@ LLM-powered travel assistant built during Udacity’s Agentic AI Nanodegree and 
 
 ![Agentic Travel Assistant workflow diagram](assets/agentic_travel_assistant_workflow_diagram.png)
 
+This workflow uses mocked weather and activity APIs to simulate external tool calls.
+
 ## What it does
 
 This project generates and revises a personalized itinerary for a fictional trip to **AgentsVille**. The assistant uses traveler preferences, budget, mock weather data, and mock activity availability to create a day-by-day travel plan, then revises the plan based on feedback.
+
+## Architecture
+
+This project follows a simple agentic workflow: collect structured trip details, use tools to gather mocked travel data, generate an itinerary, evaluate it against constraints, and revise it based on feedback.
+
+```mermaid
+flowchart TD
+    A[VacationInfo Input<br/>Travelers, dates, destination,<br/>interests, and budget] --> B[Pydantic Validation<br/>Confirm structured trip details]
+
+    B --> C[Mock Weather API<br/>Forecast by destination and date]
+    B --> D[Mock Activities API<br/>Available activities, times,<br/>prices, and interests]
+    B --> E[Budget Calculator<br/>Estimate total itinerary cost]
+
+    C --> F[Planning Agent<br/>Generate initial itinerary]
+    D --> F
+    E --> F
+
+    F --> G[Initial Itinerary<br/>Day-by-day activity plan]
+
+    G --> H[Evaluation Layer<br/>Check dates, budget, activity validity,<br/>interest match, and weather suitability]
+
+    H --> I{Passes checks?}
+
+    I -->|Yes| J[Final Itinerary<br/>Validated travel plan ready for output]
+
+    I -->|Needs revision| K[Revision Loop<br/>Use tool feedback and traveler feedback<br/>to improve the plan]
+
+    K --> C
+    K --> D
+    K --> E
+    K --> F
+```
+
+The weather and activity data in this project are mocked APIs, which lets the notebook demonstrate tool use, evaluation, and itinerary revision without depending on live third-party services.
 
 ## Why I built it
 
